@@ -1,6 +1,7 @@
 from urllib import request
 from django.shortcuts import render
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.list import ListView
 from .models import Song
 
 
@@ -11,9 +12,9 @@ def home(request):
 def about(request): 
     return render(request, 'about.html')
 
-def songs_index(request): 
-    songs = Song.objects.all()
-    return render(request, 'songs/index.html', { 'songs': songs })
+class SongIndex(ListView): 
+    model = Song
+    template_name = 'songs/index.html'
 
 def songs_detail(request, song_id): 
     song = Song.objects.get(id=song_id)
